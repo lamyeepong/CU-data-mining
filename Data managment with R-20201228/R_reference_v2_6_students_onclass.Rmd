@@ -1,0 +1,620 @@
+---
+title: "R Reference v2.6 (Students)"
+output:
+  html_notebook: default
+  pdf_document: default
+---
+
+# Vectorization
+
+```{r}
+X<-c(1,2,3)
+Y<-c(4,5,6)
+Z<-X+Y
+Z
+```
+
+# Recycling
+
+```{r}
+X<-c(1,2,3)
+Y<-c(4,5,6,7,8)
+Z<-X+Y
+Z
+```
+
+# Data types of R
+
+-Interger
+-Numeric
+-Character
+-Date time
+-Logical
+
+# Vector
+
+```{r}
+v1<-c(1,2,4)
+v2<-c("1","2","4")
+v3<-c(T,FALSE,F)
+v4<-c(1.2,3.4,5.7)
+```
+
+Note: Vector is of same type
+
+```{r}
+v5<-c(1,T,2)
+v5
+```
+
+```{r}
+v1<-c(1,"Lam",2)
+
+v1
+```
+
+
+# Filtering of vector
+
+### Method 1-vector of position
+
+e.g. v1<-1:100
+     v2<-v1[c(1,2)]
+     
+### Method 2-logical vector
+
+e.g. v2<-v1[c(T,F)]
+
+```{r}
+v1<-1:100
+v2<-v1[3:4]
+# Or v1[c(3,4)]
+v2
+```
+
+
+
+```{r}
+v1<-1:100
+v2<-v1[-c(1,2)]
+v2
+```
+
+Examples
+
+To filter v1 based on the following condition:
+-the values in v1 >=10 
+-the values in v1 >=10 and <100 (hint: use & operator for and operation and use | for or operation)
+
+```{r}
+v1<-c(1,10,2,10,100)
+v2<-v1[v1>=10]
+print(v2)
+v3<-v1[v1>=10 & v1<100]
+print(v3)
+
+```
+
+
+```{r}
+length(v1)
+sum(v1)
+max(v1)
+mean(v1)
+median(v1)
+mode(v1)
+```
+
+```{r}
+str(v1)
+summary(v1)
+```
+
+
+# Data frame
+
+```{r}
+df <- data.frame(col1 = 1: 3, 
+                 col2 = c(" this", "is", "text"), 
+                 col3 = c( TRUE, FALSE, TRUE), 
+                 col4 = c( 2.5, 4.2, pi))
+df
+```
+
+```{r}
+str(df)
+nrow(df)
+ncol(df)
+```
+
+
+To extract one column of dataframe and assign it to
+another vector, we could use $ operator
+
+```{r}
+v5<-df$col3
+str(v5)
+```
+
+
+
+```{r}
+v2<-colnames(df)
+v2
+```
+
+```{r}
+df[c(1,2),]
+```
+
+
+
+
+```{r}
+df[c(1,2),]
+
+df[c(1,2),c(1,2)]
+```
+
+# Exercise
+To create the data frame 
+
+```{r}
+df <- data.frame(Default = c("Y","N","N"), 
+                 Name = c(" Victor", "Peter", "Sam"), 
+                 Income = c( 1000, 2000, 3000), 
+                 Age = c( 40, 30, 20))
+df
+```
+
+To filter data frame where income >2000
+
+```{r}
+
+```
+
+To filter data frame where income >=2000 and age >20
+
+```{r}
+
+```
+
+
+To change the names of the data frame
+```{r}
+
+```
+
+
+
+
+# Missining values
+
+In R we use NA to represent missing value
+
+```{r}
+v1<-c(1,2,3,NA,4,5,6)
+mean(v1)
+```
+
+```{r}
+mean(v1,na.rm = TRUE)
+```
+
+
+
+
+```{r}
+is.na(v1)
+```
+
+```{r}
+sum(is.na(v1))
+```
+```{r}
+v2<-v1[is.na(v1)]
+v2
+```
+
+
+
+```{r}
+?mean
+```
+
+
+```{r}
+mean(v1,na.rm=T)
+```
+
+
+```{r}
+v1<-c(1,2,NA,3,4)
+v1[is.na(v1)]<-median(v1,na.rm=T)
+v1
+```
+
+```{r}
+v1<-c(1,2,NA,3,4)
+v1<-ifelse(is.na(v1),median(v1,na.rm=T),v1)
+v1
+```
+
+
+#Use of sapply()
+
+
+```{r}
+df<-data.frame(A1=1:4,A2=c(5,NA,6,7),A3=6:9)
+df
+```
+
+```{r}
+sapply(df,mean)
+```
+
+```{r}
+sapply(df,mean,na.rm=T)
+```
+
+To define a customized function in R
+
+```{r}
+checkNA<-function(v1)
+    {
+    sum(is.na(v1))
+}
+```
+
+```{r}
+v2<-c(NA,NA,NA,NA,2)
+checkNA(v2)
+```
+
+
+
+To check the number of missing values per column of data frame
+```{r}
+sapply(df,checkNA)
+```
+
+
+```{r}
+sapply(df,function(x) {sum(is.na(x))})
+```
+
+# Exercise
+To calculate the difference of maximum and minimum value of each column
+
+```{r}
+
+```
+
+```{r}
+?mtcars
+```
+
+
+```{r}
+mtcars
+```
+
+```{r}
+nrow(mtcars)
+ncol(mtcars)
+```
+
+```{r}
+sapply(mtcars,mean)
+```
+
+
+To calculate the first quantile, median and the third quantile of each
+column of the data frame mtacrs 
+Hint: Using quantile() function
+
+```{r}
+v1<-1:1000
+quantile(v1,probs=c(0.25,0.5))
+```
+
+
+```{r}
+sapply(mtcars,quantile,probs=c(0.25,0.5,0.75))
+```
+
+
+# Use of tapply
+To perform data aggregation 
+
+```{r}
+tapply(mtcars$mpg,mtcars$cyl, mean)
+
+```
+
+
+```{r}
+sapply(mtcars,function(x) 
+  tapply(x, mtcars$cyl,mean))
+```
+
+
+```{r}
+sapply(mtcars,function(x) { tapply(x,mtcars$cyl,mean) })
+```
+
+
+
+
+# Datetime management
+
+```{r}
+library(lubridate)
+```
+
+```{r}
+x <- c(" 2015-07-01", "2015-08-01", "2015-09-01")
+x<-ymd(x)
+str(x)
+```
+
+```{r}
+x <- c("2015-07-01 13:00:01", "2015-08-01 14:00:02", "2015-09-01 15:00:03")
+ymd_hms(x)
+```
+
+
+
+# To read csv files
+
+```{r}
+#setwd("E:/R_Working_Directory")
+
+df<-read.csv("D:/TrainingData_latest.csv",
+               header=T,sep=";",stringsAsFactors=F)
+
+```
+
+```{r}
+df<-read.csv(file=file.choose(),
+               header=T,sep=";",stringsAsFactors=F)
+```
+
+
+```{r}
+ncol(df)
+nrow(df)
+```
+
+
+```{r}
+str(df)
+```
+
+#Exercise
+
+1. To change the column hour_id to datetime format 
+Hint:Using lubridate mdy_hm()
+
+2. Check the number of missing value per column and sort the result in decending order.
+Hint: Use sapply() and sort() function
+
+3. To impute the missing value of each column with the median value
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+# EXercise: 
+
+Q1: To calculate the median value of the column with the most missing values 
+(with missing values removed)
+
+```{r}
+
+```
+
+
+Q2: Impute the missing value of the above column with the median values
+
+```{r}
+
+```
+
+
+Q3: Impute the missing value of the every column with the median values of that column
+
+```{r}
+
+```
+
+To perform min max normalization on each column of the data frame
+
+```{r}
+df<-data.frame(A1=c(1,2,3,4),B1=c(2,3,4,5),C1=c(3,4,5,6))
+
+
+
+
+```
+
+
+```{r}
+v1<-c("A1","B1","C1")
+v2<-c("B1","C1")
+
+v1 %in% v2
+```
+```{r}
+df[! colnames(df) %in% v2]
+```
+
+```{r}
+df[v2]
+```
+
+# Exercise
+
+To remove the first three columns of the data frames with the most missing values
+
+```{r}
+df<-read.csv("D:/TrainingData_latest.csv",
+               header=T,sep=";",stringsAsFactors=F)
+```
+
+
+
+# List 
+
+```{r}
+#To create a list with three elements
+l <- list(item1= 1: 3, item2="a", item3=c( TRUE, FALSE, TRUE),
+          item4=c( 2.5, 4.2)) 
+l
+```
+
+To extract list elements and return the same type as the list elements:
+
+-Use $ opeartor
+-use [[ ]]
+
+```{r}
+l$item1
+
+str(l$item1)
+
+```
+
+
+```{r}
+l[[1]]
+
+str(l[[1]])
+```
+
+
+To extract the list elements and return as list items:
+-Use [ ]
+
+```{r}
+l[1]
+
+str(l[1])
+```
+
+
+```{r}
+l[c(1,2)]
+```
+
+```{r}
+l[c("item1","item3")]
+```
+
+
+
+
+Exercise:
+
+```{r}
+df<-data.frame(A1=c(1,2,3,5),B1=c(10,2,3,4))
+df
+```
+
+
+```{r}
+L1=list(item1=df,item2=df,item3=df)
+L1
+```
+
+
+```{r}
+L1$item1[,2]
+```
+
+
+Use of lapply
+
+```{r}
+data <- list( item1 = 1: 4, item2 = rnorm( 10), item3 = rnorm( 20, 1), 
+              item4 = rnorm( 100, 5)) 
+
+```
+
+```{r}
+l1<-lapply( data, mean)
+str(l1)
+
+v1<-unlist(l1)
+v1
+str(v1)
+```
+
+
+```{r}
+df<-data.frame(A1=c(1:4),B1=c(10:13))
+df
+```
+
+
+```{r}
+L1=list(item1=df,item2=df,item3=df)
+L1
+```
+
+
+```{r}
+L2=list()
+for (i in 1:length(L1))
+    {
+    L2[[i]]<-L1[[i]][,2]
+}
+L2
+```
+
+```{r}
+L3<-lapply(L1,"[[",2)
+L3
+```
+
+```{r}
+M1<-do.call(cbind,L2)
+M1
+```
+
+
+
+```{r}
+M1<-do.call(cbind,L3)
+M1
+```
+
+You could also create the data frame directly using the following ways.
+
+Method 1:
+
+```{r}
+M1<-as.data.frame(L3)
+```
+
+Method 2:
+
+```{r}
+df<-as.data.frame(matrix(0, ncol =length(L1) , nrow = nrow(L1[[1]])))
+for (i in 1:length(L1)){
+  df[,i]<-L1[[i]][,2]
+}
+
+df
+```
+
+
+

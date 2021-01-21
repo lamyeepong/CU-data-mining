@@ -1,0 +1,69 @@
+---
+title: "Exercise_6_Use_of_R_Onclass"
+output: html_notebook
+---
+
+```{r}
+X<-c(1,2,3)
+X
+```
+```{r}
+Y<-1:100
+Y
+```
+
+
+```{r}
+df <- data.frame(Default = c("Y","N","N"), 
+                 Name = c(" Victor", "Peter", "Sam"), 
+                 Income = c( 1000, 2000, 3000), 
+                 Age = c( 40, 30, 20))
+df
+
+```
+
+```{r}
+df[df$Income>=2000,]
+```
+```{r}
+df<- data.frame(Stock_code = c("700.HK","1398.HK","2800.HK","7500.HK"),
+                Open = c(500,6.1,29,6.3),
+                High = c(530,5.8,27,5.8),
+                Low = c(490,6.2,30,6.2),
+                Close = c(520,6.2,30,6.2),
+                Volume = c(600,300,400,500))
+df
+```
+```{r}
+df$Reture_ratio = (df$Close-df$Open)/df$Open*100
+df
+```
+
+```{r}
+df$Stock_code[df$Volume>=400]
+```
+
+```{r}
+df[df$Volume>=400]
+```
+```{r}
+df <- data.frame(Stock_code = c("700.HK","1398.HK","2800.HK","7500.HK"),
+                 Open = c(500,6,28,6),
+                 High = c(510,6.1,29,6.3),
+                 Low = c(490,6.1,29,6.3),
+                 Close = c(530,6.2,30,6.2),
+                 Volume = c(600,300,400,500))
+df
+
+```
+
+```{r}
+df$Reture_ratio = (df$Close-df$Open)/df$Open*100
+df
+```
+
+```{r}
+df$High_ratio <- ifelse(df$Reture_ratio>=5,1,0)
+df
+```
+

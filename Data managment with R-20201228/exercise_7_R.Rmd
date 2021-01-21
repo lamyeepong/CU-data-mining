@@ -1,0 +1,67 @@
+---
+title: "Exercise two"
+output: html_notebook
+---
+
+
+
+```{r}
+df<-data.frame(A1=1:4,A2=c(5,NA,6,7),A3=6:9)
+df
+```
+
+
+```{r}
+minmax<-function(x)
+{
+  (max(x,na.rm=T)-min(x,na.rm=T))
+}
+
+
+v1<-c(10,20,30,5,1000)
+minmax(v1)
+```
+
+```{r}
+sapply(df,minmax)
+```
+
+Normalization of data values
+
+(x-min())/(max()-min())
+
+
+```{r}
+v1<-c(1,2,3,4)
+```
+
+
+```{r}
+normalize1<-function(x)
+{
+  (x-min(x,na.rm=T))/((max(x,na.rm=T)-min(x,na.rm=T)))
+}
+
+v1<-c(1,2,3,4)
+normalize1(v1)
+```
+
+
+```{r}
+Caldiff<-function(x)
+{
+     y<-(x-min(x,na.rm=T))/(max(x,na.rm=T) - min(x,na.rm=T))
+      
+    return(y)
+}
+
+
+v1<-c(1,2,3,4)
+Caldiff(v1)
+
+```
+
+
+
+
+

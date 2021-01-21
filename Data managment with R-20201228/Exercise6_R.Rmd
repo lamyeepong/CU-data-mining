@@ -1,0 +1,146 @@
+---
+title: "Exercise_6_Use_of_R"
+output: html_notebook
+---
+
+
+```{r}
+X<-c(1,2,3)
+X
+```
+
+```{r}
+Y<-1:100
+Y
+```
+
+
+```{r}
+v1<-c(1,10,2,10,100)
+```
+
+```{r}
+v1>=6
+```
+
+```{r}
+v1[v1>=6]
+```
+
+```{r}
+v1[v1>=6 & v1<100]
+```
+
+
+```{r}
+df <- data.frame(Default = c("Y","N","N"), 
+                 Name = c(" Victor", "Peter", "Sam"), 
+                 Income = c( 1000, 2000, 3000), 
+                 Age = c( 40, 30, 20))
+df
+```
+
+```{r}
+df$Income>=2000
+```
+
+
+```{r}
+df[df$Income>=2000,]
+```
+
+```{r}
+df[c(1,2),]
+```
+
+```{r}
+df[-c(1),]
+```
+
+
+```{r}
+df <- data.frame(Stock_code = c("700.HK","1398.HK","2800.HK","7500.HK"),
+                 Open = c(500,6,28,6),
+                 High = c(510,6.1,29,6.3),
+                 Low = c(490,6.1,29,6.3),
+                 Close = c(530,6.2,30,6.2),
+                 Volume = c(600,300,400,500))
+df
+
+```
+
+```{r}
+df$Return<-df$Close-df$Open
+```
+
+```{r}
+df
+```
+
+
+```{r}
+df$Return_Ratio<-100*(df$Close-df$Open)/df$Open
+```
+
+
+```{r}
+df
+```
+
+```{r}
+df[df$Volume>=400,]$Stock_code
+```
+
+
+```{r}
+df$Stock_code[df$Volume>=400]
+```
+
+Volume >=400 & Return_Ratio>=7
+
+```{r}
+df[df$Volume>=400&df$Return_Ratio>=7,]$Stock_code
+
+```
+
+```{r}
+df
+```
+
+```{r}
+col_df<-colnames(df)
+col_df
+```
+
+
+```{r}
+v1<-c(1,2,NA,3,4)
+v2<-ifelse(is.na(v1),median(v1,na.rm=T),v1)
+v2
+```
+
+
+
+```{r}
+t1<-c(T,F,T)
+t2<-c(1,2,3)
+t3<-c(4,5,6)
+t4<-ifelse(t1,t2,t3)
+t4
+```
+Exercise:
+
+Create column Return_category: 
+
+Return_ratio >=5 =>1
+else =>0
+
+Try to use ifelse()
+
+```{r}
+df$Return_Category = ifelse(df$Return_Ratio>=5,1,0)
+df
+
+```
+
+

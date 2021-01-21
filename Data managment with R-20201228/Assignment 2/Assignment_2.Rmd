@@ -1,0 +1,140 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+Description
+```{r}
+?read.csv
+```
+Reads a file in table format and creates a data frame from it, with cases corresponding to lines and variables to fields in the file.
+
+```{r}
+?nrow
+?ncol
+```
+nrow and ncol return the number of rows or columns present in x. NCOL and NROW do the same treating a vector as 1-column matrix, even a 0-length vector, compatibly with as.matrix() or cbind(), see the example.
+
+```{r}
+?colnames
+```
+Retrieve or set the row or column names of a matrix-like object.
+
+```{r}
+?sapply
+```
+lapply returns a list of the same length as X, each element of which is the result of applying FUN to the corresponding element of X.
+
+sapply is a user-friendly version and wrapper of lapply by default returning a vector, matrix or, if simplify = "array", an array if appropriate, by applying simplify2array(). sapply(x, f, simplify = FALSE, USE.NAMES = FALSE) is the same as lapply(x, f).
+
+```{r}
+?tapply
+```
+Apply a function to each cell of a ragged array, that is to each (non-empty) group of values given by a unique combination of the levels of certain factors.
+
+```{r}
+?sort
+```
+Sort (or order) a vector or factor (partially) into ascending or descending order. For ordering along more than one variable, e.g., for sorting data frames, see order.
+
+```{r}
+?sum
+```
+sum returns the sum of all the values present in its arguments
+```{r}
+?head
+```
+Returns the first or last parts of a vector, matrix, table, data frame or function. Since head() and tail() are generic functions, they may also have been extended to other classes.
+```{r}
+?length
+```
+Get or set the length of vectors (including lists) and factors, and of any other R object for which a method has been defined.
+```{r}
+?table
+```
+table uses the cross-classifying factors to build a contingency table of the counts at each combination of factor levels.
+```{r}
+?unique
+```
+unique returns a vector, data frame or array like x but with duplicate elements/rows removed.
+```{r}
+library(lubridate)
+```
+```{r}
+?lubridate::mdy_hm
+```
+Transform dates stored as character or numeric vectors to POSIXct objects. The ymd_hms() family of functions recognizes all non-alphanumeric separators (with the exception of "." if frac = TRUE) and correctly handles heterogeneous date-time representations. For more flexibility in treatment of heterogeneous formats, see low level parser parse_date_time().
+```{r}
+?lubridate::date
+```
+Date-time must be a POSIXct, POSIXlt, Date, chron, yearmon, yearqtr, zoo, zooreg, timeDate, xts, its, ti, jul, timeSeries, and fts objects.
+```{r}
+?substring
+```
+Extract or replace substrings in a character vector.
+```{r}
+?mean
+```
+Generic function for the (trimmed) arithmetic mean.
+
+Q1
+```{r}
+df<-read.csv("D:/TrainingData_latest.csv", header=T,sep=";",stringsAsFactors=F)
+head(df)
+```
+Q2
+```{r}
+nrow(df)
+ncol(df)
+```
+Q3
+```{r}
+Colname_df<-colnames(df)
+Colname_df
+```
+Q4
+```{r}
+sapply(df,function(x){sum(is.na(x))})
+```
+Q5
+```{r}
+NA3<-sort(sapply(df,function(x){sum(is.na(x))}), decreasing = T)[1:3]
+NA3
+```
+Q6
+```{r}
+LCID_name<-unique(df$LCID)
+length(LCID_name)
+```
+Q7
+```{r}
+z<-mdy_hm(df$hour_id)
+df$hour_id<-z
+head(df)
+```
+Q8
+```{r}
+df$date<-date(df$hour_id)
+tapply(df$hour_id,df$date, length)
+```
+```{r}
+sum(tapply(df$hour_id,df$date, length))
+```
+Q9
+```{r}
+table(df$NumComplains)
+```
+Q10
+```{r}
+sort(tapply(df$NumComplains,df$LCID,sum),decreasing = T)[1:3]
+```
+Q11
+```{r}
+df$Region<-substring(df$LCID,1,5)
+head(df$Region)
+```
+Q12
+```{r}
+sort(tapply(df$NumComplains,df$Region,sum),decreasing = T)[1:3]
+```
+
+
